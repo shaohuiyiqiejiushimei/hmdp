@@ -13,5 +13,5 @@ public class HmDianPingApplication {
     public static void main(String[] args) {
         SpringApplication.run(HmDianPingApplication.class, args);
     }
-    //测试一下哦
+    //测试一下
 }
