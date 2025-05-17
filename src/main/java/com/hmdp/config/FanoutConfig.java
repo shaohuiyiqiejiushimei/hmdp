@@ -16,8 +16,8 @@ public class FanoutConfig {
             value = @Queue(name = "fanout.queue",durable = "true"),
             exchange = @Exchange(name = "fanout.exchange",type = ExchangeTypes.FANOUT)
     ))
-    public void listenFanoutQueue(String msg){
-        System.out.println(msg);
+    public void listenFanoutQueue(String msg) throws InterruptedException {
+        System.out.println("我正在消费"+msg);
     }
 
     @Bean

@@ -30,6 +30,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * <p>
@@ -57,6 +61,13 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
         UNLOCK_SCRIPT.setLocation(new ClassPathResource("seckill.lua"));
         UNLOCK_SCRIPT.setResultType(Long.class);
     }
+
+    //基于阻塞队列实现异步下单秒杀
+    private BlockingQueue<VoucherOrder>  orderTasks = new ArrayBlockingQueue<>(1024*1024);
+    private static final ExecutorService SECKILL_ORDER_EXECUTOR = Executors.newSingleThreadExecutor();
+
+
+
     /**
      * 基于lua脚本判断用户是否有资格下单
      * @param voucherId
